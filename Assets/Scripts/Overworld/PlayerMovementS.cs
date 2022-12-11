@@ -5,41 +5,50 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovementS : MonoBehaviour
 {
-    Rigidbody2D body;
+    public SceneBossS theBoss;
 
-    Camera mainCam;
+    public float theSpeed = 5f;
+    public Transform movePoint;
+    public int facing;
 
-    float horizontal;
-    float vertical;
-    [SerializeField] float diagRatio;
-
-    public float runSpeed;
+    public LayerMask theObstacles;
+    public LayerMask theEvents;
     void Start()
     {
-        mainCam = Camera.main;
-        body = GetComponent<Rigidbody2D>();
-        mainCam.transform.position = new Vector3(body.position.x, body.position.y, -10);
+        movePoint.parent = null;
+        facing = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-        if (Mathf.Abs(horizontal) > 0.001 || Mathf.Abs(vertical) > 0.001)
+        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, theSpeed * Time.deltaTime);
+        if (transform.position == movePoint.position)
         {
-            mainCam.transform.position = new Vector3(body.position.x, body.position.y, -10);
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1)
+            {
+                if(!Physics2D.OverlapCircle(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f),.2f,theObstacles)){
+                    movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+                    facing = (int)Input.GetAxisRaw("Horizontal");
+                }
+            }
+            else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1)
+            {
+                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .2f, theObstacles))
+                {
+                    movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
+                    facing = (int)Input.GetAxisRaw("Vertical");
+                }
+            }
+        }
+
+        if (Physics2D.OverlapCircle(transform.position, .2f, theEvents)){
+            theBoss.onEvent();
         }
     }
 
     private void FixedUpdate()
     {
-        if(horizontal != 0 && vertical != 0)
-        {
-            horizontal *= diagRatio;
-            vertical *= diagRatio;
-        }
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
         
     }
 }
