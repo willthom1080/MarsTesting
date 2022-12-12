@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boilable : MonoBehaviour
 {
+    public BoilingPot thePot;
+
     public int currentDone;
     public int maxDone;
 
@@ -19,5 +21,10 @@ public class Boilable : MonoBehaviour
     public float getDoneness()
     {
         return  (float)currentDone / (float)maxDone;
+    }
+
+    public void ClickedUpon()
+    {
+        thePot.plopIn(this);
     }
 }

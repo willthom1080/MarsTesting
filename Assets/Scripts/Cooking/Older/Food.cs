@@ -12,6 +12,25 @@ public class Food : MonoBehaviour
     public Boilable boilBoy;
     public void ClickedUpon()
     {
+        //doneCount = GameObject.Find("Counter");
+
+        //if (!(doneNess))
+        //{
+        //    currPrep++;
+        //    if (currPrep == maxPrep)
+        //    {
+        //        doneNess = true;
+        //    }
+        //}
+        //if (this.GetComponent<SpriteRenderer>().flipX == true)
+        //{
+        //    this.GetComponent<SpriteRenderer>().flipX = false;
+        //}
+        //else this.GetComponent<SpriteRenderer>().flipX = true;
+    }
+
+    private void OnMouseDown()
+    {
         doneCount = GameObject.Find("Counter");
 
         if (!(doneNess))
@@ -22,13 +41,13 @@ public class Food : MonoBehaviour
                 doneNess = true;
             }
         }
+        Debug.Log("Farrttjsjjfds");
         if (this.GetComponent<SpriteRenderer>().flipX == true)
         {
             this.GetComponent<SpriteRenderer>().flipX = false;
         }
         else this.GetComponent<SpriteRenderer>().flipX = true;
     }
-
     // Start is called before the first frame update
     void Start()
     {

@@ -16,7 +16,7 @@ public class PlayerMovementS : MonoBehaviour
     void Start()
     {
         movePoint.parent = null;
-        facing = 0;
+        facing = 1;
     }
 
     // Update is called once per frame
@@ -37,13 +37,13 @@ public class PlayerMovementS : MonoBehaviour
                 if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .2f, theObstacles))
                 {
                     movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
-                    facing = (int)Input.GetAxisRaw("Vertical");
+                    facing = (int)Input.GetAxisRaw("Vertical")*2;
                 }
             }
         }
 
         if (Physics2D.OverlapCircle(transform.position, .2f, theEvents)){
-            theBoss.onEvent();
+            theBoss.onEvent(facing);
         }
     }
 

@@ -5,11 +5,11 @@ using UnityEngine;
 public class SceneBossS : MonoBehaviour
 {
     public GameObject thePlayer;
-    public void onEvent()
+    public void onEvent(int faceDir)
     {
         switch (thePlayer.transform.position.x)
         {
-            case -0.5f: Debug.Log("theDoor");
+            case -0.5f: if(faceDir == 2) Debug.Log("theDoor");
                 break;
         }
     }

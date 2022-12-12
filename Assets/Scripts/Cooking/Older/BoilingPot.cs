@@ -6,6 +6,7 @@ using UnityEngine;
 public class BoilingPot : MonoBehaviour
 {
     Boilable[] contentArr;
+    public float interval = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +16,15 @@ public class BoilingPot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(interval > 1f)
+        {
+            contentArr[0].boilMe();
+            Debug.Log("Bam" + Time.deltaTime);
+            interval = 0;
+        }
     }
 
-    void plopIn(Boilable newB)
+    public void plopIn(Boilable newB)
     {
         newB.boilMe();
         for (int i = 0; i < contentArr.Length; i++) { 
