@@ -21,7 +21,9 @@ public class Circle : MonoBehaviour
     {
         if (heldDown)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 8));
+            Vector3 tempVect;
+            tempVect = Camera.main.ScreenToWorldPoint(new Vector3(0, Input.mousePosition.y, 10));
+            transform.position = new Vector3(0, tempVect.y, tempVect.z);
             if (Input.GetMouseButtonDown(0))
             {
                 heldDown = true;
@@ -30,6 +32,7 @@ public class Circle : MonoBehaviour
             else if (Input.GetMouseButtonUp(0))
             {
                 heldDown = false;
+                transform.position = new Vector3(0, 4, 0);
             }
         }
     }
