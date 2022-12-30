@@ -349,3 +349,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldDown: 0
+  extent: 4
