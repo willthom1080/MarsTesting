@@ -5,19 +5,23 @@ using UnityEngine;
 public class Circle : MonoBehaviour
 {
     public bool heldDown;
+    public bool complete;
     public float extent;
     private void OnMouseDown()
     {
         heldDown = true;
     }
 
-    // Start is called before the first frame update
+    void createCircleVertLine(float input)
+    {
+        extent = input;
+        return;
+    }
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (heldDown)
@@ -28,6 +32,10 @@ public class Circle : MonoBehaviour
             {
                 transform.position = new Vector3(0, tempVect.y, tempVect.z);
             }
+            if (tempVect.y < (0.5 - extent))
+            {
+                complete = true;
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 heldDown = true;
@@ -37,6 +45,10 @@ public class Circle : MonoBehaviour
             {
                 heldDown = false;
                 transform.position = new Vector3(0, extent, 0);
+                if (complete == true)
+                {
+                    complete = false;
+                }
             }
         }
     }
